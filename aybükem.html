@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dünyanın En Güzel Kızı Kim?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #000000 0%, #434343 100%);
+            flex-direction: column;
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid #ffd700;
+        }
+        h1 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-shadow: 0 0 5px rgba(12, 10, 0, 0.5);
+        }
+        input {
+            padding: 12px 20px;
+            margin: 10px 0;
+            width: 80%;
+            border: 2px solid #ffd700;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+            background-color: #333;
+            color: #fff;
+        }
+        input:focus {
+            border-color: #fff;
+            box-shadow: 0 0 10px #00ff22;
+        }
+        button {
+            background-color: #00ff15;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #fff;
+            transform: scale(1.05);
+        }
+        .result {
+            display: none;
+            animation: fadeIn 1s;
+            margin-top: 20px;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .emoji {
+            font-size: 50px;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+        .error {
+            color: #ff5555;
+            display: none;
+            animation: shake 0.5s;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        .gold-text {
+            color: #ffd700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">👑</div>
+        <h1> En güzeli ?</h1>
+        <input type="text" id="answer-input" placeholder="Cevabınızı yazın...">
+        <button onclick="checkAnswer()">Cevapla</button>
+        
+        <div class="result" id="correct-result">
+            <div class="emoji"></div>
+            <p class="gold-text"> :) </p>
+        </div>
+        
+        <div class="error" id="wrong-result">
+            <div class="emoji">👿</div>
+            <p>YANLIŞ CEVAP! ⚠️</p>
+            <p>Tekrar düşün! </p>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer() {
+            const answer = document.getElementById('answer-input').value.trim();
+            const correctResult = document.getElementById('correct-result');
+            const wrongResult = document.getElementById('wrong-result');
+            
+            if(answer.toLowerCase() === "aybüke") {
+                correctResult.style.display = "block";
+                wrongResult.style.display = "none";
+                
+                // Doğru cevapta altın efekti
+                document.querySelector('.container').style.boxShadow = "0 0 30px #ffd700";
+                setTimeout(() => {
+                    document.querySelector('.container').style.boxShadow = "0 10px 25px rgba(255, 215, 0, 0.3)";
+                }, 1000);
+            } else {
+                wrongResult.style.display = "block";
+                correctResult.style.display = "none";
+                
+                // Yanlış cevapta kırmızı titreme efekti
+                document.getElementById('answer-input').style.animation = "shake 0.5s";
+                document.getElementById('answer-input').style.borderColor = "#ff5555";
+                setTimeout(() => {
+                    document.getElementById('answer-input').style.animation = "";
+                    document.getElementById('answer-input').style.borderColor = "#ffd700";
+                }, 500);
+            }
+        }
+        
+        document.getElementById('answer-input').addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+    </script>
+</body>
+</html>
